@@ -17,7 +17,7 @@ def getContours(img):
         img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if area > 1000:
+        if area > 500:
             # cv2.drawContours(imgCount, cnt, -1, (255, 0, 0), 3)
             peri = cv2.arcLength(cnt, True)
             approx = cv2.approxPolyDP(cnt, 0.02*peri, True)
@@ -37,8 +37,15 @@ def preProcessing(img):
     imgThres = cv2.erode(imgDial, kernel, iterations=1)
     return imgThres
 
-def getWarp(img,biggest):
+def reorder(myPoints):
     pass
+
+def getWarp(img,biggest):
+    pts1 = np.float32(biggest)
+    pts2 = np.float32([[0,0],[widthImage,0],[0,heightImage],[widthImage,heightImage]])
+    matrix = cv2.getPerspectiveTransform(pts1,pts2)
+    imgOutput = cv2.warpPerspective(img,matrix,(widthImage,heightImage))
+    return imgOutput
 
 
 # imgThres = preProcessing(img)
@@ -59,12 +66,12 @@ while True:
     imgThres = preProcessing(img)
 
     biggest = getContours(imgThres)
-    getWarp(img,biggest)
+    imgWrap = getWarp(img,biggest)
 
 
     cv2.imshow("count", imgCount)
-    cv2.imshow("thres", imgThres)
-    cv2.imshow("page", img)
+    cv2.imshow("thres", imgWrap)
+    # cv2.imshow("page", img)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
