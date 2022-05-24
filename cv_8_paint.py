@@ -20,13 +20,13 @@ def findColor(img, myColors,myColorValues):
         cv2.circle(imgResult, (x, y), 10,myColorValues[count], cv2.FILLED)
         count+=1
         if x!=0 and y!=0:
-        	newPoints.append([x,y,count])
+            newPoints.append([x,y,count])
         # cv2.imshow(str(col[0]), mask)
     return newPoints
 
 def drawOnCanvas(myPoints,myColorValues):
-	for point in myPoints:
-		cv2.circle(imgResult, (point[0],point[1]), 10,myColorValues[0], cv2.FILLED)
+    for point in myPoints:
+        cv2.circle(imgResult, (point[0],point[1]), 10,myColorValues[0], cv2.FILLED)
 
 def getContours(img):
     contours, hierarchy = cv2.findContours(
@@ -49,10 +49,10 @@ while True:
     imgResult = img.copy()
     newPoints = findColor(img, myColors,myColorValues)
     if len(newPoints) != 0:
-    	for newP in newPoints:
-    		myPoints.append(newP)
+        for newP in newPoints:
+            myPoints.append(newP)
     if len(myPoints)!=0:
-    	drawOnCanvas(myPoints,myColorValues)
+        drawOnCanvas(myPoints,myColorValues)
     cv2.imshow("video1", imgResult)
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
