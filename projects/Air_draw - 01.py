@@ -16,7 +16,7 @@ def getContours(img):
 
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if area > 3000:
+        if area > 500:
             # cv2.drawContours(canvas, cnt, -1, (rd.randint(0,255),rd.randint(0,255),rd.randint(0,255)), 3)
             epsilon = 0.1*cv2.arcLength(cnt,True)
             approx = cv2.approxPolyDP(cnt,epsilon,True)            
@@ -50,8 +50,8 @@ while True:
 
     imgHsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 
-    lower_hsv = np.array([0,185,120])
-    upper_hsv = np.array([179,223,255])
+    lower_hsv = np.array([64,117,177])
+    upper_hsv = np.array([174,185,255])
 
     mask = cv2.inRange(imgHsv,lower_hsv,upper_hsv) # gray sacle
     # imgRes = cv2.bitwise_and(img,img,mask=mask) # with that color
@@ -62,7 +62,7 @@ while True:
 
     if len(drawPoints) != 0:
         for line in drawPoints:
-            cv2.circle(applyImg,(line[0],line[1]),5, (rd.randint(0,255),rd.randint(0,255),rd.randint(0,255)),cv2.FILLED)
+            cv2.circle(applyImg,(line[0],line[1]),5, (255,0,0),cv2.FILLED)
             
             # cv2.line(canvas,(0,0),(point[0],point[1]),2)
 
