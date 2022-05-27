@@ -17,15 +17,15 @@ def getContours(img):
     for cnt in contours:
         area = cv2.contourArea(cnt)
         if area > 500:
-            # cv2.drawContours(canvas, cnt, -1, (rd.randint(0,255),rd.randint(0,255),rd.randint(0,255)), 3)
+            cv2.drawContours(canvas, cnt, -1, (0,0,255), 3)
             epsilon = 0.1*cv2.arcLength(cnt,True)
             approx = cv2.approxPolyDP(cnt,epsilon,True)            
             x, y, w, h = cv2.boundingRect(approx)
 
             center = (x+w//2, y+h//2)
-            cv2.circle(applyImg,center,20,(0,0,255),-1)
-            cv2.putText(applyImg,"Red",(x,y),font,4,(0,0,0),2,cv2.LINE_AA)
-            cv2.rectangle(applyImg,(x,y),(x+w,y+h),(0,255,0),3)
+            # cv2.circle(applyImg,center,20,(0,0,255),-1)
+            # cv2.putText(applyImg,"Red",(x,y),font,4,(0,0,0),2,cv2.LINE_AA)
+            # cv2.rectangle(applyImg,(x,y),(x+w,y+h),(0,255,0),3)
     return x+w//2,y
 
 while True:
@@ -33,7 +33,7 @@ while True:
     frame = cv2.flip(img, 1)
     imgRes = frame.copy()
     # create canvas
-    canvas = np.ones((550,550,3),np.uint8)*255
+    canvas = np.ones((550,550,3),np.uint8)*0
     applyImg = canvas
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -50,8 +50,8 @@ while True:
 
     imgHsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 
-    lower_hsv = np.array([64,117,177])
-    upper_hsv = np.array([174,185,255])
+    lower_hsv = np.array([50,100,100])
+    upper_hsv = np.array([90,255,255])
 
     mask = cv2.inRange(imgHsv,lower_hsv,upper_hsv) # gray sacle
     # imgRes = cv2.bitwise_and(img,img,mask=mask) # with that color

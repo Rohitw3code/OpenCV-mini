@@ -115,8 +115,7 @@ while True:
 
     cv2.imshow("frame",frame)
     cv2.imshow("gray",mask)
-    # cv2.imshow("canvas",canvas)
-
+    # cv2.imshow("canvas",canvas)q
     # if cv2.waitKeqy(32) == ord(" "):
     #     stop = 0 if stop else 1
 
